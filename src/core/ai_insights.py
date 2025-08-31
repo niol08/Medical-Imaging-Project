@@ -6,7 +6,19 @@ from typing import Dict, Any
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+
+api_key = os.environ.get("GEMINI_API_KEY")
+if not api_key:
+    try:
+        import streamlit as st
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        api_key = None
+
+if api_key:
+    genai.configure(api_key=api_key)
+else:
+    raise RuntimeError("GEMINI_API_KEY not found in environment or Streamlit secrets.")
 
 def generate_gemini_insight(label: str, confidence: float) -> str:
     """
