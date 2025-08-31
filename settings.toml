@@ -1,0 +1,10 @@
+[ui]
+app_name = "Medical Imaging AI (Research)"
+org = "Research"
+accent = "default"
+enable_llm = true
+
+[modalities]
+spectroscopy = true
+fluoroscopy  = true
+pet          = true
